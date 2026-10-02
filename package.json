@@ -1,8 +1,13 @@
 {
   "name": "frame-marketplace-prototype",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "module",
-  "scripts": { "dev": "node server.mjs", "start": "node server.mjs", "build": "node build.mjs" },
-  "engines": { "node": ">=20" }
+  "scripts": {
+    "dev": "node init && node scripts/dev-server.mjs",
+    "build": "node init && node build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }

@@ -57,8 +57,16 @@ Replace demo accounts with authentication and server-enforced roles. Store accou
 - style.css — responsive dark workspace styling
 - app.js — navigation, uploads, IndexedDB persistence, preview composition
 - assets/ — bundled sample MP4 videos
-- server.mjs — local server supporting media range requests
+- scripts/dev-server.mjs — local server supporting media range requests
 - build.mjs — creates the deployable dist directory
 - vercel.json — hosting configuration
 
 All source code is included. There are no runtime npm dependencies.
+
+## Fixing Vercel FUNCTION_INVOCATION_FAILED
+
+This prototype is static and should not create a Vercel Function. Version 1.0.1 explicitly configures framework: null (Other), buildCommand: npm run build, and outputDirectory: dist in vercel.json. The local server is now scripts/dev-server.mjs; delete the old root server.mjs when updating an existing repository. package.json no longer includes a production start command.
+
+Replace the previous source files, commit the changes, and deploy the new commit. Ensure Vercel Root Directory points to the folder containing package.json and vercel.json. Check Settings → Build and Deployment: Framework Other, Build Command npm run build, Output Directory dist. Do not add a catch-all rewrite to a server function. Redeploy without reusing the build cache.
+
+If a new deployment still reports FUNCTION_INVOCATION_FAILED, inspect its Runtime Logs and check whether another vercel.json, api/ directory, or framework configuration exists in your repository. The browser console alone cannot show the function exception.
